@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React, { useState } from "react";
+import CreateAccount from "./components/CreateAccount";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
+import BookHome from "./components/BookHome";
+import ApiTest from "./components/ApiTest";
+
+export default function App() {
+  const [screen, setScreen] = useState("login");
+  const [email, setEmail] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      {/* API connection status */}
+      <ApiTest />
+
+      {screen === "login" && (
+        <CreateAccount
+          onForgot={() => setScreen("forgot")}
+          onContinue={() => setScreen("home")}
+        />
+      )}
+
+      {screen === "forgot" && (
+        <ForgotPassword
+          email={email}
+          setEmail={setEmail}
+          onSend={() => setScreen("reset")}
+          onBack={() => setScreen("login")}
+        />
+      )}
+
+      {screen === "reset" && (
+        <ResetPassword
+          email={email}
+          setEmail={setEmail}
+          onReset={() => setScreen("login")}
+          onBack={() => setScreen("login")}
+        />
+      )}
+
+      {screen === "home" && (
+        <BookHome onLogout={() => setScreen("login")} />
+      )}
+    </main>
   );
 }
-
-export default App;
