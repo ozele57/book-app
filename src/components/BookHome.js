@@ -103,7 +103,11 @@ export default function BookHome({ onLogout }) {
           className="profile"
           onClick={() => setMenu(!menu)}
         >
-          <UserCircle size={24} />
+         <img
+  src="/assets/ade.svg"
+  alt="Ade Phil"
+  className="profile-picture"
+/>
 
           <span>
             <b>Ade Phil</b>
@@ -166,11 +170,11 @@ export default function BookHome({ onLogout }) {
               className="book"
               key={`${book.title}-${index}`}
             >
-              <BookMarked
-                className="book-mark"
-                size={16}
-                fill="currentColor"
-              />
+             <img
+  src="/assets/atomic.svg"
+  alt="Book"
+  className="book-mark"
+/>
 
               <div className="book-copy">
                 <b>{book.title}</b>
@@ -196,7 +200,11 @@ export default function BookHome({ onLogout }) {
 
       <nav className="bottom">
         <button className="selected">
-          <Home size={22} fill="currentColor" />
+          <img
+  src="/assets/ho.svg"
+  alt="Home"
+  className="home-icon"
+/>
           <span>Home</span>
         </button>
 

@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Mail, ShieldCheck, ChevronDown, Apple } from "lucide-react";
+import { Apple } from "lucide-react";
 import { apiRequest } from "../api";
 
 export default function CreateAccount({ onForgot, onContinue }) {
@@ -25,7 +25,11 @@ export default function CreateAccount({ onForgot, onContinue }) {
         });
 
         alert(result.message || "Account created successfully!");
+
         setIsRegister(false);
+        setName("");
+        setEmail("");
+        setPassword("");
       } else {
         const result = await apiRequest("/api/auth/login", {
           email,
@@ -51,8 +55,14 @@ export default function CreateAccount({ onForgot, onContinue }) {
 
   return (
     <section className="screen">
-      <form className="create" onSubmit={handleSubmit}>
-        <h1>{isRegister ? "Create your account" : "Create your account"}</h1>
+      <form
+        className="create"
+        onSubmit={handleSubmit}
+        autoComplete="off"
+      >
+        <h1>
+          {isRegister ? "Create your account" : "Login to your account"}
+        </h1>
 
         {isRegister && (
           <label className="field">
@@ -61,6 +71,7 @@ export default function CreateAccount({ onForgot, onContinue }) {
               placeholder="Full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              autoComplete="off"
               required
             />
           </label>
@@ -68,42 +79,47 @@ export default function CreateAccount({ onForgot, onContinue }) {
 
         <label className="field">
           <img
-  src="/assets/Vector.svg"
-  alt="Email"
-  className="input-icon"
-/>
+            src="/assets/Vector.svg"
+            alt="Email"
+            className="input-icon"
+          />
+
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="off"
             required
           />
         </label>
 
         <label className="field">
           <img
-  src="/assets/Vector (1).svg"
-  alt="Password"
-  className="input-icon"
-/>
+            src="/assets/Vector (1).svg"
+            alt="Password"
+            className="input-icon"
+          />
+
           <input
             type={show ? "text" : "password"}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete={isRegister ? "new-password" : "current-password"}
             required
           />
+
           <button
             type="button"
             className="eye"
             onClick={() => setShow(!show)}
           >
             <img
-  src="/assets/divine.svg"
-  alt="Email"
-  className="input-icon"
-/>
+              src="/assets/divine.svg"
+              alt="Toggle password visibility"
+              className="input-icon"
+            />
           </button>
         </label>
 
@@ -134,7 +150,12 @@ export default function CreateAccount({ onForgot, onContinue }) {
         <button
           type="button"
           className="white"
-          onClick={() => setIsRegister(!isRegister)}
+          onClick={() => {
+            setIsRegister(!isRegister);
+            setName("");
+            setEmail("");
+            setPassword("");
+          }}
         >
           {isRegister ? "Log in" : "Create an account"}
         </button>
@@ -168,4 +189,3 @@ export default function CreateAccount({ onForgot, onContinue }) {
     </section>
   );
 }
- 

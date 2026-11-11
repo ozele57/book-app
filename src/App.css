@@ -451,3 +451,23 @@ button {
   height: 15px;
   object-fit: contain;
 }
+
+
+.github-repos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.github-repos article {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.github-repos a {
+  display: block;
+  margin-top: 15px;
+}
+
+
